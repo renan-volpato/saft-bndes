@@ -77,6 +77,9 @@ public class ImportacaoService {
             validarCabecalho(colunas);
 
             for (CSVRecord registro : parser) {
+                if (linhaVazia(registro)) {
+                     continue; // ignora linhas sem nenhum dado (ex.: ";;;;;" gerado pelo Excel)
+                }
                 lidas++;
                 long numero = registro.getRecordNumber();
 
@@ -226,6 +229,15 @@ public class ImportacaoService {
         if (t == null) return null;
         String s = t.trim().replaceAll("\\s+", " ");
         return (s.isEmpty() || s.matches("-+")) ? null : s;
+    }
+
+    private boolean linhaVazia(CSVRecord registro) {
+    for (String valor : registro) {
+        if (valor != null && !valor.isBlank()) {
+            return false;
+        }
+    }
+    return true;
     }
 
     private LocalDate data(String s) {
