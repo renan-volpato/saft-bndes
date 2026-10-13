@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SAFT BNDES - Sistema de Apoio ao Financiamento Tecnológico</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="topo">
+  <div class="container">
+    <h1>SAFT BNDES</h1>
+    <p>Sistema de Apoio ao Financiamento Tecnológico · dados abertos do BNDES (operações não automáticas)</p>
+  </div>
+</header>
+
+<main class="container">
+  <div id="mensagem" class="mensagem oculto" role="alert"></div>
+
+  <section class="cards">
+    <article class="card">
+      <h2>Registros</h2>
+      <p class="numero-grande" id="contadorGeral">–</p>
+      <p class="legenda">operações armazenadas no banco (Neon)</p>
+      <button id="btnNovo" class="btn primario">+ Novo registro</button>
+    </article>
+
+    <article class="card">
+      <h2>Importar arquivo</h2>
+      <p class="legenda">Selecione o CSV oficial do BNDES ou a amostra documentada.</p>
+      <input type="file" id="arquivo">
+      <button id="btnImportar" class="btn primario">Importar</button>
+      <div id="resultadoImportacao" class="resultado oculto"></div>
+    </article>
+
+    <article class="card">
+      <h2>Buscar por ID</h2>
+      <div class="linha">
+        <input type="number" id="buscaId" placeholder="ID" min="1">
+        <button id="btnBuscarId" class="btn">Buscar</button>
+      </div>
+      <div id="detalhe" class="detalhe oculto"></div>
+    </article>
+  </section>
+
+  <section class="painel">
+    <div class="painel-topo">
+      <div>
+        <h2>Onde o BNDES concentra o financiamento?</h2>
+        <p class="legenda">As 10 UFs com maior resultado, somando todas as operações cadastradas.</p>
+      </div>
+      <select id="metricaGrafico">
+        <option value="valorTotal">Valor contratado (R$)</option>
+        <option value="quantidade">Quantidade de operações</option>
+      </select>
+    </div>
+    <div class="grafico-caixa"><canvas id="grafico"></canvas></div>
+  </section>
+
+  <section class="painel">
+    <h2>Operações</h2>
+
+    <form id="formFiltros" class="filtros">
+      <label>UF
+        <select id="filtroUf"><option value="">Todas</option></select>
+      </label>
+      <label>Setor
+        <input type="text" id="filtroSetor" placeholder="ex.: industria">
+      </label>
+      <label>Valor mínimo (R$)
+        <input type="number" id="filtroMin" min="0" step="0.01">
+      </label>
+      <label>Valor máximo (R$)
+        <input type="number" id="filtroMax" min="0" step="0.01">
+      </label>
+      <button type="submit" class="btn primario">Filtrar</button>
+      <button type="button" id="btnLimpar" class="btn">Limpar</button>
+    </form>
+
+    <p id="infoTabela" class="legenda"></p>
+
+    <div class="tabela-caixa">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th><th>Cliente</th><th>UF</th><th>Data</th>
+            <th class="num">Valor contratado</th><th>Setor</th><th>Produto</th><th>Ações</th>
+          </tr>
+        </thead>
+        <tbody id="corpoTabela"></tbody>
+      </table>
+    </div>
+
+    <div class="paginacao">
+      <button id="btnAnterior" class="btn">← Anterior</button>
+      <span id="paginaAtual"></span>
+      <button id="btnProxima" class="btn">Próxima →</button>
+    </div>
+  </section>
+</main>
+
+<dialog id="dialogForm">
+  <form id="formOperacao" novalidate>
+    <h2 id="tituloForm">Novo registro</h2>
+    <input type="hidden" id="campoId">
+
+    <div class="grade-form">
+      <label>Cliente *<input id="cliente" maxlength="255"></label>
+      <label>CNPJ<input id="cnpj" maxlength="20"></label>
+      <label>Nº do contrato *<input id="numeroContrato" maxlength="50"></label>
+      <label>UF *<input id="uf" maxlength="2"></label>
+      <label>Município<input id="municipio" maxlength="100"></label>
+      <label>Data da contratação *<input type="date" id="dataContratacao"></label>
+      <label>Valor contratado (R$) *<input type="number" id="valorContratado" step="0.01"></label>
+      <label>Valor desembolsado (R$)<input type="number" id="valorDesembolsado" step="0.01"></label>
+      <label>Produto *<input id="produto" maxlength="150"></label>
+      <label>Setor BNDES *<input id="setorBndes" maxlength="100"></label>
+      <label>Porte do cliente<input id="porteCliente" maxlength="30"></label>
+      <label>Inovação
+        <select id="inovacao">
+          <option value="">—</option>
+          <option value="SIM">SIM</option>
+          <option value="NÃO">NÃO</option>
+        </select>
+      </label>
+    </div>
+
+    <div id="errosForm" class="erros oculto"></div>
+
+    <div class="acoes-form">
+      <button type="button" id="btnCancelar" class="btn">Cancelar</button>
+      <button type="submit" class="btn primario">Salvar</button>
+    </div>
+  </form>
+</dialog>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,121 @@
+:root {
+  --azul: #0b3d5c;
+  --verde: #2e9e6b;
+  --fundo: #f3f5f7;
+  --borda: #d8dee4;
+  --texto: #1f2933;
+  --suave: #667085;
+  --erro: #b42318;
+  --ok: #067647;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+  background: var(--fundo);
+  color: var(--texto);
+}
+
+.container { max-width: 1280px; margin: 0 auto; padding: 0 20px; }
+.oculto { display: none !important; }
+
+.topo { background: var(--azul); color: #fff; padding: 22px 0; }
+.topo h1 { margin: 0; font-size: 1.8rem; }
+.topo p { margin: 4px 0 0; opacity: .85; }
+
+main { padding-bottom: 40px; }
+h2 { margin: 0 0 8px; font-size: 1.1rem; }
+.legenda { color: var(--suave); font-size: .9rem; margin: 4px 0 12px; }
+
+/* mensagens de sucesso e erro */
+.mensagem {
+  position: sticky; top: 10px; z-index: 20;
+  margin-top: 16px; padding: 12px 16px;
+  border-radius: 8px; font-weight: 500;
+}
+.mensagem.sucesso { background: #dcfae6; color: var(--ok); border: 1px solid #abefc6; }
+.mensagem.erro { background: #fee4e2; color: var(--erro); border: 1px solid #fecdca; }
+
+/* cards e painéis */
+.cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 20px 0; }
+.card, .painel {
+  background: #fff; border: 1px solid var(--borda);
+  border-radius: 10px; padding: 18px;
+}
+.painel { margin-bottom: 20px; }
+.painel-topo { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
+.numero-grande { font-size: 2.2rem; font-weight: 700; color: var(--azul); margin: 4px 0 0; }
+
+/* formulários e botões */
+input, select {
+  width: 100%; padding: 8px 10px; font: inherit;
+  border: 1px solid var(--borda); border-radius: 6px; background: #fff;
+}
+input:focus, select:focus { outline: 2px solid var(--verde); outline-offset: -1px; }
+input[type="file"] { margin-bottom: 10px; padding: 6px; }
+
+.btn {
+  padding: 8px 14px; font: inherit; cursor: pointer;
+  border: 1px solid var(--borda); border-radius: 6px; background: #fff;
+}
+.btn:hover:not(:disabled) { background: #eef2f6; }
+.btn:disabled { opacity: .5; cursor: not-allowed; }
+.btn.primario { background: var(--verde); border-color: var(--verde); color: #fff; }
+.btn.primario:hover:not(:disabled) { background: #26865a; }
+.btn.perigo { color: var(--erro); border-color: #fecdca; }
+.btn.pequeno { padding: 4px 10px; font-size: .85rem; }
+
+.linha { display: flex; gap: 8px; }
+
+/* resultado da importação e detalhe */
+.resultado, .detalhe {
+  margin-top: 12px; padding: 10px 12px; font-size: .9rem;
+  background: var(--fundo); border-radius: 6px;
+}
+.resultado ul, .detalhe p { margin: 4px 0; }
+.resultado ul { padding-left: 18px; }
+.detalhe p { margin: 2px 0; }
+
+/* gráfico */
+.grafico-caixa { position: relative; height: 340px; }
+
+/* filtros */
+.filtros {
+  display: grid; grid-template-columns: 1fr 1.4fr 1fr 1fr auto auto;
+  gap: 12px; align-items: end; margin-bottom: 8px;
+}
+.filtros label { display: flex; flex-direction: column; gap: 4px; font-size: .85rem; color: var(--suave); }
+
+/* tabela */
+.tabela-caixa { overflow-x: auto; border: 1px solid var(--borda); border-radius: 8px; }
+table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+th, td { padding: 9px 12px; text-align: left; border-bottom: 1px solid var(--borda); }
+th { background: var(--azul); color: #fff; position: sticky; top: 0; white-space: nowrap; }
+tbody tr:nth-child(even) { background: #f9fafb; }
+tbody tr:hover { background: #eef6f1; }
+.num { text-align: right; white-space: nowrap; }
+td.cliente { max-width: 280px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+td.acoes { white-space: nowrap; display: flex; gap: 6px; }
+td.vazio { text-align: center; color: var(--suave); padding: 24px; }
+
+.paginacao { display: flex; justify-content: center; align-items: center; gap: 16px; margin-top: 14px; }
+
+/* janela de cadastro/edição */
+dialog { border: none; border-radius: 12px; padding: 24px; width: min(760px, 92vw); }
+dialog::backdrop { background: rgba(0, 0, 0, .45); }
+.grade-form { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 16px; margin-top: 12px; }
+.grade-form label { display: flex; flex-direction: column; gap: 4px; font-size: .85rem; color: var(--suave); }
+.acoes-form { display: flex; justify-content: flex-end; gap: 10px; margin-top: 18px; }
+.erros {
+  margin-top: 14px; padding: 10px 14px; border-radius: 6px;
+  background: #fee4e2; color: var(--erro); font-size: .9rem;
+}
+.erros ul { margin: 6px 0 0; padding-left: 18px; }
+
+@media (max-width: 900px) {
+  .cards { grid-template-columns: 1fr; }
+  .filtros { grid-template-columns: 1fr 1fr; }
+  .grade-form { grid-template-columns: 1fr; }
+}
