@@ -1,7 +1,7 @@
 const API = '/api/operacoes';
 const TAMANHO_PAGINA = 15;
 const UFS = ['AC','AL','AP','AM','BA','CE','DF','ES','GO','MA','MT','MS','MG',
-             'PA','PB','PR','PE','PI','RJ','RN','RS','RO','RR','SC','SP','SE','TO'];
+             'PA','PB','PR','PE','PI','RJ','RN','RS','RO','RR','SC','SP','SE','TO', 'IE'];
 const CAMPOS_TEXTO = ['cliente', 'cnpj', 'numeroContrato', 'uf', 'municipio',
                       'produto', 'setorBndes', 'porteCliente', 'inovacao'];
 
@@ -389,7 +389,7 @@ function desenharGrafico() {
   grafico = new Chart($('grafico'), {
     type: 'bar',
     data: {
-      labels: top.map((d) => d.uf),
+      labels: top.map((d) => d.uf === 'IE' ? 'IE (interestadual)' : d.uf),
       datasets: [{
         data: top.map((d) => ehValor ? Number(d.valorTotal) / 1e9 : Number(d.quantidade)),
         backgroundColor: '#2e9e6b'
