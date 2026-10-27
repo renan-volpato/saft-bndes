@@ -14,8 +14,6 @@ let temporizador;
 const $ = (id) => document.getElementById(id);
 const moeda = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' });
 
-/* ---------- utilitários ---------- */
-
 function mostrarMensagem(texto, tipo = 'sucesso') {
   const el = $('mensagem');
   el.textContent = texto;
@@ -49,8 +47,6 @@ function botao(rotulo, classe, acao) {
   b.addEventListener('click', acao);
   return b;
 }
-
-/* ---------- tabela, filtros e paginação ---------- */
 
 function parametrosFiltro() {
   const p = new URLSearchParams();
@@ -146,8 +142,6 @@ async function atualizarTudo() {
   await Promise.all([carregarTabela(), carregarContadorGeral(), carregarGrafico()]);
 }
 
-/* ---------- busca por ID ---------- */
-
 async function buscarPorId() {
   const id = $('buscaId').value;
   const caixa = $('detalhe');
@@ -186,8 +180,6 @@ async function buscarPorId() {
     mostrarMensagem(e.message, 'erro');
   }
 }
-
-/* ---------- cadastro, edição e exclusão ---------- */
 
 function abrirFormulario(op) {
   $('formOperacao').reset();
@@ -296,8 +288,6 @@ async function excluir(id) {
   }
 }
 
-/* ---------- importação ---------- */
-
 function mostrarResultadoImportacao(r) {
   const caixa = $('resultadoImportacao');
   caixa.replaceChildren();
@@ -361,8 +351,6 @@ async function importar() {
   }
 }
 
-/* ---------- gráfico ---------- */
-
 async function carregarGrafico() {
   try {
     const res = await fetch(`${API}/resumo-uf`);
@@ -418,8 +406,6 @@ function desenharGrafico() {
     }
   });
 }
-
-/* ---------- inicialização ---------- */
 
 document.addEventListener('DOMContentLoaded', () => {
   UFS.forEach((uf) => {

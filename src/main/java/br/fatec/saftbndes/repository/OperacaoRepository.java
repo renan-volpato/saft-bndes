@@ -34,7 +34,6 @@ public interface OperacaoRepository extends JpaRepository<Operacao, Long> {
                            @Param("valorMax") BigDecimal valorMax,
                            Pageable pageable);
 
-    // Agrupamento do gráfico: quantidade e valor total por UF
     @Query("""
             SELECT new br.fatec.saftbndes.dto.ResumoUf(o.uf, COUNT(o), SUM(o.valorContratado))
             FROM Operacao o

@@ -34,8 +34,6 @@ public class OperacaoController {
         return ResponseEntity.ok(service.listar());
     }
 
-    // Sem "size" devolve tudo; com "page" e "size" devolve uma página.
-    // O total de registros que atendem ao filtro vai no cabeçalho X-Total-Count.
     @GetMapping("/filtro")
     public ResponseEntity<List<Operacao>> filtrar(
             @RequestParam(required = false) String uf,
@@ -54,7 +52,6 @@ public class OperacaoController {
                 .body(resultado.getContent());
     }
 
-    // Dados agrupados por UF para o gráfico
     @GetMapping("/resumo-uf")
     public ResponseEntity<List<ResumoUf>> resumoPorUf() {
         return ResponseEntity.ok(service.resumoPorUf());
